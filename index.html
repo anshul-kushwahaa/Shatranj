@@ -1,0 +1,25 @@
+<DOCTYPE! html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shatranj</title>
+        <link rel ="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="difficulty-screen" class="screen hidden">
+            <h2>Select Difficult</h2>
+            <button onclick="startGame('bot', 'easy')">Easy</button>
+            <button onclick="startGame('bot', 'medium')">Medium</button>
+            <button onclick="startGame('bot', 'hard')">Hard</button>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div id="top-bar">
+                <button onclick="showHome()">← Menu</button>
+                <div id="status">White's turn</div>
+            </div>
+            <div id="board"></div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
