@@ -1,4 +1,4 @@
-<DOCTYPE! html>
+<!DOCTYPE html>
 <html lang = "en">
     <head>
         <meta charset="UTF-8">
@@ -6,6 +6,14 @@
         <link rel ="stylesheet" href="style.css">
     </head>
     <body>
+
+        <div id="home-screen" class="screen">
+            <h1>♟ Shatranj</h1>
+            <p>Choose a game mode</p>
+            <button onclick="showDifficulty()">vs Bot</button>
+            <button onclick="startGame('friend')">vs Friend</button>
+        </div>
+
         <div id="difficulty-screen" class="screen hidden">
             <h2>Select Difficult</h2>
             <button onclick="startGame('bot', 'easy')">Easy</button>
@@ -20,6 +28,8 @@
             </div>
             <div id="board"></div>
         </div>
+
         <script src="script.js"></script>
+
     </body>
 </html>
