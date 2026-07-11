@@ -1,35 +1,80 @@
 <!DOCTYPE html>
-<html lang = "en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Shatranj</title>
-        <link rel ="stylesheet" href="style.css">
-    </head>
-    <body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shatranj</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        <div id="home-screen" class="screen">
-            <h1>♟ Shatranj</h1>
-            <p>Choose a game mode</p>
-            <button onclick="showDifficulty()">vs Bot</button>
-            <button onclick="startGame('friend')">vs Friend</button>
+  <!-- Home Screen -->
+  <div id="home-screen" class="screen">
+    <h1>♟ Shatranj</h1>
+    <p>Choose a game mode</p>
+    <button onclick="showDifficulty()">vs Bot</button>
+    <button onclick="startGame('friend')">vs Friend</button>
+  </div>
+
+  <!-- Difficulty Screen -->
+  <div id="difficulty-screen" class="screen hidden">
+    <h2>Select Difficulty</h2>
+    <button onclick="startGame('bot', 'easy')">Easy</button>
+    <button onclick="startGame('bot', 'medium')">Medium</button>
+    <button onclick="startGame('bot', 'hard')">Hard</button>
+    <button onclick="showHome()">← Back</button>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen" class="screen hidden">
+    <div id="top-bar">
+      <button onclick="showHome()">← Menu</button>
+      <div id="status">White's turn</div>
+      <div id="top-actions">
+        <button class="icon-btn" onclick="undoMove()" title="Undo">↩</button>
+        <button class="icon-btn" onclick="flipBoard()" title="Flip Board">⇅</button>
+        <button class="icon-btn" id="sound-btn" onclick="toggleSound()" title="Sound">🔊</button>
+        <button class="icon-btn danger" onclick="resign()" title="Resign">🏳</button>
+      </div>
+    </div>
+
+    <div id="game-container">
+      <div id="board-wrapper">
+        <div id="black-timer" class="timer">10:00</div>
+        <div id="board"></div>
+        <div id="white-timer" class="timer active-timer">10:00</div>
+      </div>
+
+      <div id="sidebar">
+        <div id="material-bar">
+          <div>⚖ Material: <span id="material-score">Equal</span></div>
         </div>
-
-        <div id="difficulty-screen" class="screen hidden">
-            <h2>Select Difficult</h2>
-            <button onclick="startGame('bot', 'easy')">Easy</button>
-            <button onclick="startGame('bot', 'medium')">Medium</button>
-            <button onclick="startGame('bot', 'hard')">Hard</button>
+        <div id="captured-bar">
+          <div>⬛ White took: <span id="black-captured">—</span></div>
+          <div>⬜ Black took: <span id="white-captured">—</span></div>
         </div>
-
-        <div id="game-screen" class="screen hidden">
-            <div id="top-bar">
-                <button onclick="showHome()">← Menu</button>
-                <div id="status">White's turn</div>
-            </div>
-            <div id="board"></div>
+        <div id="move-history">
+          <h3>Move History</h3>
+          <ol id="move-list"></ol>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <script src="script.js"></script>
+  <!-- Game Over Screen -->
+  <div id="gameover-screen" class="screen hidden">
+    <h2 id="gameover-text"></h2>
+    <button onclick="startGame(gameMode, botDifficulty)">Play Again</button>
+    <button onclick="showHome()">← Menu</button>
+  </div>
 
-    </body>
+  <!-- Promotion Modal -->
+  <div id="promotion-modal" class="hidden">
+    <div id="promotion-box">
+      <p>Promote pawn to:</p>
+      <div id="promotion-choices"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
