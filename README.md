@@ -91,12 +91,12 @@ The build runs in Expo's cloud and produces an APK you can download and install 
 
 ```
 Shatranj/
+├── vercel.json             Deployment config
 ├── Shatranj - Web/
 │   ├── index.html          Screens and layout
 │   ├── style.css           Themes, board and animations
 │   ├── script.js           Rules, engine, input and interface
-│   ├── favicon.svg
-│   └── vercel.json
+│   └── favicon.svg
 └── Shatranj-Mobile/
     ├── App.js              The entire game
     ├── app.json            Expo configuration
