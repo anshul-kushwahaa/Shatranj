@@ -4,7 +4,7 @@ A complete chess game built from scratch — a browser version in vanilla JavaSc
 
 Shatranj is the historical name for chess, originating in ancient India.
 
-Live demo: https://anshul-kushwahaa.github.io/Shatranj/
+Live demo: https://shatranj-three.vercel.app
 
 ---
 
