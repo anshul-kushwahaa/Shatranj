@@ -363,7 +363,8 @@ function drawArrows(){
   const svg=document.getElementById('arrow-svg');
   if(!svg) return;
   svg.innerHTML='';
-  const sqSize=50;
+  const firstSq=document.querySelector('.square');
+  const sqSize=firstSq?firstSq.getBoundingClientRect().width:50;
   arrows.forEach(arr=>{
     const [fr,fc]=arr.from,[tr,tc]=arr.to;
     const fromSq=getSquareEl(fr,fc),toSq=getSquareEl(tr,tc);
@@ -411,7 +412,7 @@ function animatePiece(fromRow,fromCol,toRow,toCol,piece,callback){
   flying.className='flying-piece piece '+(isWhite(piece)?'white-piece':'black-piece');
   flying.style.left=fr.left+'px'; flying.style.top=fr.top+'px';
   flying.style.width=fr.width+'px'; flying.style.height=fr.height+'px';
-  flying.style.fontSize='28px';
+  flying.style.fontSize=getComputedStyle(fromSq).fontSize;
   document.body.appendChild(flying);
   if(pel) pel.style.visibility='hidden';
   requestAnimationFrame(()=>{
@@ -822,7 +823,8 @@ function updateEvalBar(){
   if(!fill)return;
   const score=evaluate();                       // centipawns, + = White better
   const pct=50+50*Math.tanh(score/500);
-  fill.style.height=Math.max(3,Math.min(97,pct))+'%';
+  // CSS decides whether this drives height (desktop) or width (mobile)
+  fill.style.setProperty('--pct',Math.max(3,Math.min(97,pct))+'%');
   const pawns=score/100;
   num.textContent=(pawns>0?'+':'')+pawns.toFixed(1);
 }

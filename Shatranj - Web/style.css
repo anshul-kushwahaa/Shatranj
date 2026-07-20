@@ -1,7 +1,11 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 
 /* ── Themes ── */
-:root { --sq-light:#f0d9b5; --sq-dark:#b58863; --accent:#e2b96f; }
+:root {
+  --sq-light:#f0d9b5; --sq-dark:#b58863; --accent:#e2b96f;
+  /* Square size: 50px normally, shrinks to fit narrow screens */
+  --sq: min(50px, calc((100vw - 24px) / 8));
+}
 body.theme-green { --sq-light:#ffffdd; --sq-dark:#86a666; --accent:#86a666; }
 body.theme-dark  { --sq-light:#6a6a6a; --sq-dark:#2e2e2e; --accent:#aaa; }
 body.theme-blue  { --sq-light:#dee3e6; --sq-dark:#8ca2ad; --accent:#8ca2ad; }
@@ -84,7 +88,7 @@ button:active { transform:scale(0.97); }
   background:#333; border-radius:3px; overflow:hidden;
   display:flex; flex-direction:column-reverse;
 }
-#eval-fill { width:100%; height:50%; background:#f0f0f0; transition:height 0.4s ease; }
+#eval-fill { width:100%; height:var(--pct,50%); background:#f0f0f0; transition:height 0.4s ease, width 0.4s ease; }
 #eval-num {
   position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
   font-size:8px; font-weight:bold; color:#333; writing-mode:vertical-rl; text-orientation:mixed;
@@ -92,8 +96,8 @@ button:active { transform:scale(0.97); }
 
 #board {
   display:grid;
-  grid-template-columns:repeat(8,50px);
-  grid-template-rows:repeat(8,50px);
+  grid-template-columns:repeat(8,var(--sq));
+  grid-template-rows:repeat(8,var(--sq));
   border:3px solid var(--accent);
   box-shadow:0 8px 32px rgba(0,0,0,0.5);
 }
@@ -105,9 +109,9 @@ button:active { transform:scale(0.97); }
 }
 
 .square {
-  width:50px; height:50px;
+  width:var(--sq); height:var(--sq);
   display:flex; align-items:center; justify-content:center;
-  font-size:28px; cursor:pointer; position:relative;
+  font-size:calc(var(--sq) * 0.56); cursor:pointer; position:relative;
   user-select:none; -webkit-user-select:none;
 }
 .light { background:var(--sq-light); }
@@ -150,14 +154,14 @@ button:active { transform:scale(0.97); }
 .flying-piece {
   position:fixed; pointer-events:none; z-index:1000;
   display:flex; align-items:center; justify-content:center;
-  font-size:28px; transition:left 0.13s ease-out, top 0.13s ease-out;
+  font-size:calc(var(--sq) * 0.56); transition:left 0.13s ease-out, top 0.13s ease-out;
 }
 
 /* Held piece (follows cursor while dragging) */
 .holding-piece {
   position:fixed; pointer-events:none; z-index:1200;
   display:flex; align-items:center; justify-content:center;
-  font-size:34px; transform:scale(1.12);
+  font-size:calc(var(--sq) * 0.68); transform:scale(1.12);
   filter:drop-shadow(0 4px 6px rgba(0,0,0,0.5));
 }
 body.holding { cursor:grabbing; }
@@ -227,3 +231,36 @@ body.holding { cursor:grabbing; }
 
 /* ── Confetti ── */
 #confetti-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; display:none; z-index:200; }
+
+/* ══ Phones & small tablets ══════════════════ */
+@media (max-width: 700px) {
+  body { padding:6px; overflow-x:hidden; }
+
+  h1 { font-size:32px; }
+  h2 { font-size:22px; }
+  button { width:min(260px, 100%); }
+
+  #game-screen { padding:4px; gap:6px; }
+
+  /* Top bar: let the status drop to its own line */
+  #top-bar { flex-wrap:wrap; justify-content:space-between; gap:6px; }
+  #status-wrap { order:3; flex-basis:100%; }
+  #top-actions { gap:5px; }
+  .icon-btn { width:36px!important; height:36px; font-size:15px!important; }
+
+  /* Sidebar moves below the board instead of beside it */
+  #game-container { flex-direction:column; align-items:center; gap:8px; }
+  #sidebar { width:calc(var(--sq) * 8); max-width:100%; }
+
+  /* Eval bar becomes a horizontal strip above the board */
+  #eval-bar {
+    position:static; width:calc(var(--sq) * 8); height:8px;
+    flex-direction:row; margin:0 auto 4px;
+  }
+  #eval-fill { width:var(--pct,50%); height:100%; }
+  #eval-num { display:none; }
+
+  #move-history { max-height:150px; }
+  #keyboard-hint { display:none; }
+  .nav-btn { padding:8px 0!important; }
+}
