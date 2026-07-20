@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Shatranj",
+    "slug": "Shatranj-Mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anshulkushwahaa.shatranj"
+    },
+    "android": {
+      "package": "com.anshulkushwahaa.shatranj",
+      "adaptiveIcon": {
+        "backgroundColor": "#1a1a2e",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "61ccc7b7-3290-43d6-bc3d-2e371061126b"
+      }
+    }
+  }
+}

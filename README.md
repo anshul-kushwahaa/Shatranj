@@ -1,106 +1,141 @@
-#  Shatranj
+# Shatranj
 
-A full-featured chess game built from scratch with **vanilla HTML, CSS, and JavaScript** — no libraries, no frameworks. Play against a self-built AI bot or a friend on the same device, with all the polish of a modern chess app.
+A complete chess game built from scratch — a browser version in vanilla JavaScript and a mobile app in React Native. The chess engine, including the opponent AI, is written by hand with no chess libraries.
 
-> **Shatranj** (शतरंज) is the historical name for chess, originating in ancient India.
+Shatranj is the historical name for chess, originating in ancient India.
 
-🔗 **Live Demo:** [anshul-kushwahaa.github.io/Shatranj](https://anshul-kushwahaa.github.io/Shatranj/)
-
-
-
-##  Features
-
-### Game Modes
-- 🤖 **vs Bot** — three difficulty levels (Easy / Medium / Hard)
-- 👥 **vs Friend** — local two-player on the same board
-- ⏱ **Time controls** — Bullet (1 min), Blitz (3+2, 5+3), Rapid (10 min), or No Timer, with increment support
-
-### Full Chess Rules
-- All piece movement, captures, and turn order
-- ♚ **Castling** (king-side & queen-side, with rights tracking)
--  **En passant**
--  **Pawn promotion** — choose your piece, or enable **Auto-Queen**
-- Check, checkmate, and stalemate detection
-- Draw detection: **50-move rule**, **threefold repetition**, and **insufficient material**
-
-### The Bot 
-- Built by hand using the **Minimax** algorithm with **Alpha-Beta pruning**
-- Search depth scales with difficulty (1 / 2 / 3 ply)
-- Position evaluation using material values **and piece-square tables**
-
-### Board & Interaction
--  **Hold-to-drag** pieces (pointer-based, works with mouse *and* touch)
--  **Click-to-move** as an alternative
--  **Pre-move** — queue your reply while the bot is thinking; it plays instantly if still legal
--  **Hint** — the engine suggests a strong move with an arrow
--  **Right-click arrows & square highlights** for planning
--  **Flip board**, ↩ **Undo**, 🏳 **Resign**, ½ **Offer draw**
--  **Keyboard navigation** (← → to review moves, Esc to exit review) + on-screen nav buttons
-
-### Info & Polish
--  **Evaluation bar** showing who's ahead
--  **Move history** in standard algebraic notation (with `+`, `#`, `=Q`, `O-O`, disambiguation)
--  **Copy PGN** to clipboard
--  **Material score** and **captured pieces** display
--  **Opening name detection** for common openings
--  **Four board themes** — Classic, Green, Dark, Blue (saved between sessions)
--  **Sound effects** via the Web Audio API (no audio files)
--  **Confetti** celebration on a win
--  **Score tracking** persisted with `localStorage`
--  Smooth piece-move animation and low-time timer warnings
-
-
-##  Getting Started
-
-No build step or dependencies — it's plain static files.
-
-### Option 1 — VS Code Live Server (recommended)
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/anshul-kushwahaa/Shatranj.git
-   cd Shatranj
-   ```
-2. Open the folder in **VS Code**.
-3. Install the **Live Server** extension.
-4. Right-click `index.html` → **Open with Live Server**.
-
-### Option 2 — Open directly
-Just open `index.html` in any modern browser (Chrome, Firefox, or Edge).
+Live demo: https://anshul-kushwahaa.github.io/Shatranj/
 
 ---
 
-##  Project Structure
+## Contents
+
+| Folder | Description |
+| --- | --- |
+| `Shatranj - Web/` | The website. Plain HTML, CSS and JavaScript, no build step. |
+| `Shatranj-Mobile/` | The Android and iOS app, built with React Native and Expo. |
+
+Both versions share the same rules engine and the same AI, and play identically.
+
+---
+
+## Features
+
+### Game modes
+- Play against the bot at three difficulty levels: Easy, Medium and Hard
+- Play against a friend on the same device
+- Time controls: Bullet (1 min), Blitz (3+2 and 5+3), Rapid (10 min), or no timer, with increment support
+
+### Complete chess rules
+- All piece movement, captures and turn order
+- Castling, king-side and queen-side, with full rights tracking
+- En passant
+- Pawn promotion, with a piece picker or an auto-queen option
+- Check, checkmate and stalemate detection
+- Draws by the fifty-move rule, threefold repetition and insufficient material
+
+### The engine
+- Minimax search with alpha-beta pruning
+- Search depth scales with difficulty, from one to three ply
+- Position scoring uses material values combined with piece-square tables
+
+### Playing experience
+- Pick up and drag pieces, or tap a piece and tap its destination
+- Legal moves shown as dots, with rings marking available captures
+- Pre-move: queue your reply while the bot is thinking, played instantly if still legal
+- Hint button that asks the engine for a strong move
+- Move history in standard algebraic notation, including check, mate, promotion and castling
+- Evaluation bar, material count and captured pieces
+- Undo, board flip, resign and draw offers
+- Four board themes: Classic, Green, Dark and Blue
+- Sound effects and, on mobile, haptic feedback
+- Move review with the arrow keys on the web, and navigation buttons on both
+
+---
+
+## Running the website
+
+No build step and no dependencies.
+
+```bash
+cd "Shatranj - Web"
+```
+
+Then either open `index.html` directly in any modern browser, or for live reloading, open the folder in VS Code, install the Live Server extension, and choose "Open with Live Server" on `index.html`.
+
+## Running the mobile app
+
+Requires Node.js 18 or newer and the Expo Go app on your phone.
+
+```bash
+cd Shatranj-Mobile
+npm install
+npx expo start
+```
+
+Scan the QR code with Expo Go on Android, or with the Camera app on iOS. Your phone and computer must be on the same network. If the connection fails, use `npx expo start --tunnel` instead.
+
+### Building an installable Android app
+
+```bash
+cd Shatranj-Mobile
+npx eas-cli login
+npx eas-cli build -p android --profile preview
+```
+
+The build runs in Expo's cloud and produces an APK you can download and install directly on a phone.
+
+---
+
+## Project structure
 
 ```
 Shatranj/
-├── index.html        # Screens & layout (home, difficulty, time control, game, game over)
-├── style.css         # Themes, board, animations, responsive layout
-├── script.js         # All game logic: rules, bot, input, UI
-├── TECH_STACK.md     # Tech stack reference
-└── README.md
+├── Shatranj - Web/
+│   ├── index.html          Screens and layout
+│   ├── style.css           Themes, board and animations
+│   ├── script.js           Rules, engine, input and interface
+│   ├── favicon.svg
+│   └── vercel.json
+└── Shatranj-Mobile/
+    ├── App.js              The entire game
+    ├── app.json            Expo configuration
+    ├── eas.json            Build profiles
+    ├── make-sounds.js      Generates the sound effects
+    ├── make-icon.js        Generates the app icons
+    └── assets/             Icons and sounds
 ```
 
-##  Tech Stack
+The sound effects and app icons are generated by scripts rather than stored as source art. Run `node make-sounds.js` or `node make-icon.js` inside `Shatranj-Mobile` to regenerate them after changing the tones or the artwork.
 
-**Phase 1 (this repo):** HTML5 · CSS3 · Vanilla JavaScript
-**Bot:** Minimax + Alpha-Beta pruning + piece-square tables
-**Hosting:** GitHub Pages
-**Version control:** Git & GitHub
+---
+
+## Technology
+
+- Website: HTML5, CSS3 and vanilla JavaScript
+- Mobile: React Native and Expo SDK 54
+- Engine: minimax with alpha-beta pruning and piece-square tables
+- Hosting: GitHub Pages and Vercel
+- Version control: Git and GitHub
+
+---
 
 ## Roadmap
 
-- [x] **Phase 1** — Web app with full rules, bot, and chess.com-style features
-- [ ] **Phase 2** — Mobile app with **React Native** (Android & iOS)
+- [x] Browser version with the full rules and the engine
+- [x] Mobile app for Android and iOS
 - [ ] Online multiplayer
-- [ ] Stronger bot (deeper search, opening book, endgame heuristics)
+- [ ] A stronger engine with deeper search, an opening book and endgame knowledge
+- [ ] Saved games and player statistics
 
 ---
 
-##  Author
+## Author
 
-**Anshul Kushwaha**
-Built as a learning project — chess engine and UI written from the ground up.
+Anshul Kushwaha
 
----
+Built as a learning project. The board, the rules and the engine were written from the ground up.
 
-*Made with ♟ and vanilla JavaScript.*
+## License
+
+Released under the MIT License.
